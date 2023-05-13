@@ -1,3 +1,6 @@
+"""
+Sqlalchemy Device like entities models
+"""
 from typing import List, Set
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import String, ForeignKey
@@ -16,31 +19,43 @@ class Device(Base):
 
 class DeviceType(Base):
     """
-    Device Type model
+    Types of devices
     """
     name: Mapped[str] = mapped_column(String(1024))
 
 
 class DeviceModel(Base):
     """
-    Device Model sqlalchemy model
+    Models of devices.
+    Example: Xiaomi Mi Band 7
     """
     name: Mapped[str] = mapped_column(String(1024))
 
 
 class DeviceVendor(Base):
     """
-    Device Vendor model
+    Vendors of devices
     """
     name: Mapped[str] = mapped_column(String(1024))
 
 
 class DeviceProfile(Base):
     """
-    Device Profile model
+    Profiles of devices
     """
     name: Mapped[str] = mapped_column(String(1024))
     devices: Mapped[List["Device"]] = relationship(back_populates="t_device")
-    types: Mapped[List["DeviceType"]] = relationship(back_populates="t_device_type")
-    models: Mapped[List["DeviceModel"]] = relationship(back_populates="t_device_model")
-    vendors: Mapped[List["DeviceVendor"]] = relationship(back_populates="t_device_vendor")
+    id_type: Mapped[int] = mapped_column(ForeignKey("t_device_type.id"))
+    id_device_model: Mapped[int] = mapped_column(ForeignKey("t_device_model.id"))
+    id_device_vendor: Mapped[int] = mapped_column(ForeignKey("t_device_vendor.id"))
+    device_profile_parameters: Mapped[List["DeviceProfileParameter"]] = relationship(
+        back_populates="t_device_profile_parameter.id"
+    )
+
+
+class DeviceProfileParameter(Base):
+    """
+    Parameters in device profile
+    """
+    name: Mapped[str] = mapped_column(String(1024))
+    id_device_profile: Mapped[int] = mapped_column(ForeignKey("t_device_profile.id"))
