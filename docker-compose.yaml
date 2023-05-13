@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  postgres:
+    image: "postgres"
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-espira}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-espira}
+      POSTGRES_DB: ${POSTGRES_DB:-espira}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    # To keep data on host system use volumes
+    volumes:
+      - /data/pgdata/espira:/var/lib/postgresql/data/pgdata
+    ports:
+      # "external_port:internal_port"
+      - "5432:5432"
