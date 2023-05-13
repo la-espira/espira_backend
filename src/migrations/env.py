@@ -1,3 +1,4 @@
+import logging
 from logging.config import fileConfig
 
 from alembic import context
@@ -16,6 +17,9 @@ config.set_main_option('sqlalchemy.url', settings.db_connection_string)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+logger = logging.getLogger(__name__)
+logger.info(f"sqlalchemy.url: {config.get_main_option('sqlalchemy.url')}")
+
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
@@ -26,7 +30,6 @@ from db.models import *
 if not globals().get('Device'):
     raise Exception("Device model hasn't imported")
 target_metadata = Base.metadata
-print(target_metadata)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
