@@ -23,6 +23,8 @@ if config.config_file_name is not None:
 # target_metadata = None
 # from db.models import Base
 from db.models import *
+if not globals().get('Device'):
+    raise Exception("Device model hasn't imported")
 target_metadata = Base.metadata
 print(target_metadata)
 
