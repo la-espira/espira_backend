@@ -1,11 +1,6 @@
-from typing import Any
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy import Boolean
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+from sqlalchemy.orm import mapped_column, Mapped
 
 from common.tool import camel_to_snake
 
