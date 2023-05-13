@@ -3,13 +3,13 @@ Sqlalchemy Device like entities models
 """
 from typing import List, Set
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import String, ForeignKey, UniqueConstraint
 from db.models import Base
 
 
 class Device(Base):
     """
-    Device model
+    Devices
     """
     name: Mapped[str] = mapped_column(String(1024))
     id_device_profile: Mapped[int] = mapped_column(
@@ -21,29 +21,29 @@ class DeviceType(Base):
     """
     Types of devices
     """
-    name: Mapped[str] = mapped_column(String(1024))
+    name: Mapped[str] = mapped_column(String(1024), unique=True)
 
 
 class DeviceModel(Base):
     """
-    Models of devices.
+    Models (variants/versions) of devices.
     Example: Xiaomi Mi Band 7
     """
-    name: Mapped[str] = mapped_column(String(1024))
+    name: Mapped[str] = mapped_column(String(1024), unique=True)
 
 
 class DeviceVendor(Base):
     """
     Vendors of devices
     """
-    name: Mapped[str] = mapped_column(String(1024))
+    name: Mapped[str] = mapped_column(String(1024), unique=True)
 
 
 class DeviceProfile(Base):
     """
     Profiles of devices
     """
-    name: Mapped[str] = mapped_column(String(1024))
+    name: Mapped[str] = mapped_column(String(1024), unique=True)
     devices: Mapped[List["Device"]] = relationship(back_populates="t_device")
     id_type: Mapped[int] = mapped_column(ForeignKey("t_device_type.id"))
     id_device_model: Mapped[int] = mapped_column(ForeignKey("t_device_model.id"))
@@ -57,5 +57,9 @@ class DeviceProfileParameter(Base):
     """
     Parameters in device profile
     """
+    __table_args__ = (
+        UniqueConstraint("name", "id_device_profile"),
+    )
     name: Mapped[str] = mapped_column(String(1024))
     id_device_profile: Mapped[int] = mapped_column(ForeignKey("t_device_profile.id"))
+    # UniqueConstraint("name", "id_device_profile")
