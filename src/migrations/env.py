@@ -26,7 +26,9 @@ logger.info(f"sqlalchemy.url: {config.get_main_option('sqlalchemy.url')}")
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
 # from db.models import Base
-from db.models import *
+from db.models.base import Base
+from db.models.parameter import *
+from db.models.device import *
 if not globals().get('Device'):
     raise Exception("Device model hasn't imported")
 target_metadata = Base.metadata

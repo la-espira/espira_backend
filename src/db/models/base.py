@@ -2,6 +2,7 @@ from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import mapped_column, Mapped
 
+from common.settings import DB_DEVICE_SCHEMA
 from common.tool import camel_to_snake
 
 
@@ -9,6 +10,7 @@ from common.tool import camel_to_snake
 class Base:
     id: Mapped[int] = mapped_column(primary_key=True)
     __name__: str
+    __table_args__ = ({'schema': DB_DEVICE_SCHEMA})
 
     # To generate tablename from class name
     @declared_attr
