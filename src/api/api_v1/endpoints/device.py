@@ -16,7 +16,7 @@ def read_devices(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=Device)
+    devices = get_items_by_model(db=db, model=Device, skip=skip, limit=limit)
     return devices
 
 
@@ -27,7 +27,7 @@ def read_device_types(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceType)
+    devices = get_items_by_model(db=db, model=DeviceType, skip=skip, limit=limit)
     return devices
 
 
@@ -38,27 +38,27 @@ def read_device_vendors(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceVendor)
+    devices = get_items_by_model(db=db, model=DeviceVendor, skip=skip, limit=limit)
     return devices
 
 
 @router.get("/model", response_model=List[DeviceModelShow])
-def read_device_vendors(
+def read_device_models(
     db: Session = Depends(get_db), skip: int = 0, limit: int = 100,
 ):
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceModel)
+    devices = get_items_by_model(db=db, model=DeviceModel, skip=skip, limit=limit)
     return devices
 
 
 @router.get("/device-profile", response_model=List[DeviceProfileShow])
-def read_device_vendors(
+def read_device_profiles(
     db: Session = Depends(get_db), skip: int = 0, limit: int = 100,
 ):
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceProfile)
+    devices = get_items_by_model(db=db, model=DeviceProfile, skip=skip, limit=limit)
     return devices
