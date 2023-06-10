@@ -2,7 +2,7 @@ import os
 import sys
 from loguru import logger
 
-LOG_LEVEL: str = os.getenv('LOG_LEVEL')
+LOG_LEVEL: str = os.getenv('LOG_LEVEL', 'INFO')
 LOGURU_FORMAT: str = os.getenv(
     'LOGURU_FORMAT',
     "<level>{level}</level> | " 
