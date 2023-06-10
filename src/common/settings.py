@@ -26,10 +26,7 @@ class Settings:
             )
         self.API_V1_STR: str = os.getenv('API_V1_STR', '/api/v1')
 
-        # self.PROJECT_NAME: str = PROJECT_NAME
-        # self.PROJECT_VERSION: str = PROJECT_VERSION
-        # self.DB_CONNECTION_STRING: str = DB_CONNECTION_STRING
-        # self.API_V1_STR: str = API_V1_STR
+        self.LIMIT: int = int(os.getenv('LIMIT', 100))
 
 
 settings = Settings()
