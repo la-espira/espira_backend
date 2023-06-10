@@ -25,9 +25,7 @@ class DeviceType(Base):
     """
     Types of devices
     """
-    __table_args__ = (
-        {'comment': 'Device Types'},
-    )
+    __table_args__ = ({'comment': 'Device Types'},)
     name: Mapped[str] = mapped_column(String(1024), unique=True, nullable=False)
 
 
@@ -54,13 +52,13 @@ class DeviceProfile(Base):
     """
     __table_args__ = ({'comment': 'Device Profiles'})
     name: Mapped[str] = mapped_column(String(1024), unique=True, nullable=False)
-    devices: Mapped[List["Device"]] = relationship(back_populates="t_device")
+    # devices: Mapped[List["Device"]] = relationship(back_populates="t_device")
     id_device_type: Mapped[int] = mapped_column(ForeignKey("t_device_type.id"))
     id_device_model: Mapped[int] = mapped_column(ForeignKey("t_device_model.id"))
     id_device_vendor: Mapped[int] = mapped_column(ForeignKey("t_device_vendor.id"))
-    device_profile_parameters: Mapped[List["DeviceProfileParameter"]] = relationship(
-        back_populates="t_device_profile_parameter.id"
-    )
+    # device_profile_parameters: Mapped[List["DeviceProfileParameter"]] = relationship(
+    #     back_populates="t_device_profile_parameter.id"
+    # )
 
 
 class DeviceProfileParameter(Base):
