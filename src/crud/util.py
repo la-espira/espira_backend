@@ -15,7 +15,8 @@ def get_items_by_model(
     Get records for table with model
     """
     stmt = select(model).offset(skip).limit(limit)
-    items: Sequence = db.scalars(stmt).all()
+    # items: Sequence = db.scalars(stmt).all()
+    items: Sequence = db.execute(stmt).scalars().all()
     logger.debug(f"Returning: {len(items)} items of {model}")
     return items
 
