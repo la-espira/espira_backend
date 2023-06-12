@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 
 class DeviceBase(BaseModel):
-    id: int
     name: str | None = None
 
     class Config:
@@ -18,18 +17,26 @@ class DeviceShow(DeviceBase):
 
 
 class DeviceTypeShow(DeviceBase):
+    id: int
+    pass
+
+
+class DeviceTypeCreate(DeviceBase):
     pass
 
 
 class DeviceVendorShow(DeviceBase):
+    id: int
     pass
 
 
 class DeviceModelShow(DeviceBase):
+    id: int
     pass
 
 
 class DeviceProfileShow(DeviceBase):
+    id: int
     id_device_type: int
     id_device_model: int
     id_device_vendor: int
