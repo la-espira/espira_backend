@@ -15,7 +15,14 @@ def read_devices(
     db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
 ):
     """
-    Retrieve devices
+    Get devices
+    - **skip**: Start with
+    - **limit**: Amount to get
+    \f
+    :param db: Session
+    :param skip: Offset
+    :param limit: Limit
+    :return:
     """
     devices = get_items_by_model(db=db, model=Device, skip=skip, limit=limit)
     return devices
