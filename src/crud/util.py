@@ -11,8 +11,13 @@ from db.models.base import Base
 def get_items_by_model(
         db: Session, model: Type[Base], skip: int = 0, limit: int = 100
 ) -> Sequence:
-    """"
-    Get records for table with model
+    """
+    Get records from table with model
+    :param db: Session
+    :param model: SQLAlchemy model
+    :param skip: Offset
+    :param limit: Limit
+    :return:
     """
     stmt = select(model).offset(skip).limit(limit)
     # items: Sequence = db.scalars(stmt).all()
