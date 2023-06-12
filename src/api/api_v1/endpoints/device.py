@@ -2,10 +2,11 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from common.settings import settings
-from crud.util import get_items_by_model
+from crud.util import get_items_by_model, add_item_by_model
 from db.models.device import *
 from db.session import get_db
 from schemas.device import *
+from common.log import logger
 
 router = APIRouter()
 
@@ -37,6 +38,13 @@ def read_device_types(
     """
     devices = get_items_by_model(db=db, model=DeviceType, skip=skip, limit=limit)
     return devices
+
+
+@router.post("/type/create/", response_model=DeviceTypeShow)
+def create_device_type(device_type: DeviceTypeCreate, db: Session = Depends(get_db)):
+    logger.debug(f"Post item: {device_type}")
+    new_element = add_item_by_model(item=device_type, model=DeviceType, db=db)
+    return new_element
 
 
 @router.get("/vendor", response_model=List[DeviceVendorShow])
