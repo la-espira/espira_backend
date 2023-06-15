@@ -14,3 +14,17 @@ services:
     ports:
       # "external_port:internal_port"
       - "5432:5432"
+  mongo:
+    image: mongo
+#    container_name: ...
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: espira
+      MONGO_INITDB_ROOT_USERNAME: espira
+      MONGO_INITDB_ROOT_PASSWORD: espira
+    volumes:
+#      - ${VOL_DIR}/docker/mongo:/data/db
+      - /data/mongo/espira:/data/db
+    ports:
+      # "external_port:internal_port"
+      - "27017:27017"
