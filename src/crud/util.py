@@ -7,49 +7,50 @@ from sqlalchemy.exc import IntegrityError
 
 from common.log import logger
 from db.models.base import Base
+from schemas.device import PydanticBase, DeviceBase
 
 
 def get_items_by_model(
-        db: Session, model: Type[Base], skip: int = 0, limit: int = 100
+        db: Session, table_model: Type[Base], skip: int = 0, limit: int = 100
 ) -> Sequence:
     """
     Get records from table with model
     :param db: Session
-    :param model: SQLAlchemy model
+    :param table_model: SQLAlchemy model
     :param skip: Offset
     :param limit: Limit
     :return:
     """
-    stmt = select(model).offset(skip).limit(limit)
+    stmt = select(table_model).offset(skip).limit(limit)
     # items: Sequence = db.scalars(stmt).all()
     items: Sequence = db.execute(stmt).scalars().all()
-    logger.debug(f"Returning: {len(items)} items of {model}")
+    logger.debug(f"Returning: {len(items)} items of {table_model}")
     return items
 
 
 def add_item_by_model(
-        db: Session, item: Type[Base], model: Type[Base]
-) -> Type[Base]:
+        db: Session, item: PydanticBase, table_model: Type[Base]
+) -> Base | None:
     """
     Add record to table with model
     :param db: Session
     :param item:
-    :param model: SQLAlchemy model
+    :param table_model: SQLAlchemy model
     :return:
     """
-    item_object = model(**item.dict())
+    item_object: Base = table_model(**item.dict())
     logger.debug(f"Prepared item: {item_object}")
     db.add(item_object)
     try:
         db.commit()
     except IntegrityError as e:
-        logger.warning(f"Failed to add item: {item_object}: IntegrityError: {e}")
+        logger.debug(f"Failed to add item: {item_object}: IntegrityError: {e}")
         db.rollback()
     except Exception as e:
-        logger.warning(f"Failed to add item: {e}")
+        logger.debug(f"Failed to add item: {e}")
         db.rollback()
     else:
         db.refresh(item_object)
         logger.debug(f"Inserted item: {item_object}")
         return item_object
-
+    return None
