@@ -28,5 +28,9 @@ class Settings:
 
         self.LIMIT: int = int(os.getenv('LIMIT', 100))
 
+        self.MONGO_DB: str = os.getenv('MONGO_DB', 'espira')
+        self.MONGO_USERNAME: str = os.getenv('MONGO_USERNAME', 'espira')
+        self.MONGO_PASSWORD: str = os.getenv('MONGO_PASSWORD', 'espira')
+
 
 settings = Settings()
