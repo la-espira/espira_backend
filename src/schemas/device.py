@@ -1,14 +1,18 @@
 """
 Pydantic models for Device like entities
 """
-from pydantic import BaseModel
+from pydantic import BaseModel as PydanticBase
 
 
-class DeviceBase(BaseModel):
+class DeviceBase(PydanticBase):
     name: str | None = None
 
     class Config:
         orm_mode = True
+
+
+class DeviceCreate(DeviceBase):
+    id_device_profile: int
 
 
 class DeviceShow(DeviceBase):
