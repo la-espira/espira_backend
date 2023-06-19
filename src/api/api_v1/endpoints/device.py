@@ -25,7 +25,7 @@ def read_devices(
     :param limit: Limit
     :return:
     """
-    devices = get_items_by_model(db=db, model=Device, skip=skip, limit=limit)
+    devices = get_items_by_model(db=db, table_model=Device, skip=skip, limit=limit)
     return devices
 
 
@@ -36,7 +36,7 @@ def read_device_types(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceType, skip=skip, limit=limit)
+    devices = get_items_by_model(db=db, table_model=DeviceType, skip=skip, limit=limit)
     return devices
 
 
@@ -54,7 +54,7 @@ def read_device_vendors(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceVendor, skip=skip, limit=limit)
+    devices = get_items_by_model(db=db, table_model=DeviceVendor, skip=skip, limit=limit)
     return devices
 
 
@@ -65,7 +65,7 @@ def read_device_models(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceModel, skip=skip, limit=limit)
+    devices = get_items_by_model(db=db, table_model=DeviceModel, skip=skip, limit=limit)
     return devices
 
 
@@ -76,5 +76,5 @@ def read_device_profiles(
     """
     Retrieve devices
     """
-    devices = get_items_by_model(db=db, model=DeviceProfile, skip=skip, limit=limit)
+    devices = get_items_by_model(db=db, table_model=DeviceProfile, skip=skip, limit=limit)
     return devices
