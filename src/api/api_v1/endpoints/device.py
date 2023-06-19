@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from common.settings import settings
@@ -29,6 +29,19 @@ def read_devices(
     return devices
 
 
+@router.post("/create/", response_model=DeviceCreate)
+def create_device(device: DeviceCreate, db: Session = Depends(get_db)):
+    """
+    Create a Device Type
+    """
+    logger.debug(f"Post item: {device}")
+    new_element = add_item_by_model(item=device, table_model=Device, db=db)
+    if new_element:
+        return new_element
+    else:
+        raise HTTPException(status_code=400,detail="Already exists",)
+
+
 @router.get("/type", response_model=List[DeviceTypeShow])
 def read_device_types(
     db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
@@ -42,9 +55,15 @@ def read_device_types(
 
 @router.post("/type/create/", response_model=DeviceTypeShow)
 def create_device_type(device_type: DeviceTypeCreate, db: Session = Depends(get_db)):
+    """
+    Create a Device Type
+    """
     logger.debug(f"Post item: {device_type}")
-    new_element = add_item_by_model(item=device_type, model=DeviceType, db=db)
-    return new_element
+    new_element = add_item_by_model(item=device_type, table_model=DeviceType, db=db)
+    if new_element:
+        return new_element
+    else:
+        raise HTTPException(status_code=400, detail="Already exists",)
 
 
 @router.get("/vendor", response_model=List[DeviceVendorShow])
