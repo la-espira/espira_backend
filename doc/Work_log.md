@@ -2,6 +2,10 @@
 
 ---
 
+# 2023.06.13 exceptions 
+- [x] Try except for add_item_by_model
+- [ ] Handling in create_device_type
+
 # 2023.06.12 create
 Added create operation. No constraint or exception handling.
 
