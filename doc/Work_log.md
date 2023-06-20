@@ -2,6 +2,12 @@
 
 ---
 
+# 2023.06.19 async
+
+Commited & pushed to feature/1.
+Created branch feature/2 from feature/1.
+Started refactoring for async.
+
 # 2023.06.13 exceptions 
 - [x] Try except for add_item_by_model
 - [ ] Handling in create_device_type
