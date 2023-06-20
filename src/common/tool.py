@@ -39,7 +39,7 @@ def make_connection_string(
     :return:
     """
     return (
-        f"postgresql://{quote_plus(user)}:"
+        f"postgresql+asyncpg://{quote_plus(user)}:"
         f"{quote_plus(password)}@"
         f"{server}:{port}/{db}"
     )
