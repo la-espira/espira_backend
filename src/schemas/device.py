@@ -34,8 +34,16 @@ class DeviceVendorShow(DeviceBase):
     pass
 
 
+class DeviceVendorCreate(DeviceBase):
+    pass
+
+
 class DeviceModelShow(DeviceBase):
     id: int
+    pass
+
+
+class DeviceModelCreate(DeviceBase):
     pass
 
 
