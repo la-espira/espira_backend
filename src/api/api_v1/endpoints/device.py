@@ -77,6 +77,21 @@ async def read_device_vendors(
     return devices
 
 
+@router.post("/vendor/create/", response_model=DeviceVendorShow)
+async def create_device_vendor(device_vendor: DeviceVendorCreate, db: Session = Depends(get_db)):
+    """
+    Create a Device Vendor
+    """
+    logger.debug(f"Post item: {device_vendor}")
+    new_element = await add_item_by_model(
+        item=device_vendor, table_model=DeviceVendor, async_session=db
+    )
+    if new_element:
+        return new_element
+    else:
+        raise HTTPException(status_code=400, detail="Already exists",)
+
+
 @router.get("/model", response_model=List[DeviceModelShow])
 async def read_device_models(
     db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
@@ -86,6 +101,21 @@ async def read_device_models(
     """
     devices = await get_items_by_model(async_session=db, table_model=DeviceModel, skip=skip, limit=limit)
     return devices
+
+
+@router.post("/model/create/", response_model=DeviceModelShow)
+async def create_device_model(device_model: DeviceModelCreate, db: Session = Depends(get_db)):
+    """
+    Create a Device Vendor
+    """
+    logger.debug(f"Post item: {device_model}")
+    new_element = await add_item_by_model(
+        item=device_model, table_model=DeviceModel, async_session=db
+    )
+    if new_element:
+        return new_element
+    else:
+        raise HTTPException(status_code=400, detail="Already exists",)
 
 
 @router.get("/device-profile", response_model=List[DeviceProfileShow])
