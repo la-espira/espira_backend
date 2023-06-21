@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from common.log import logger
 from common.settings import settings
 from crud.util import get_items_by_model, add_item_by_model
 from db.models.device import *
 from db.session import get_db
 from schemas.device import *
-from common.log import logger
 
 router = APIRouter()
 
