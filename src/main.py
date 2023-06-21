@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from common.settings import settings
 from api.api_v1.api import api_router
+from common.settings import settings
 
 
 def include_router(app: FastAPI):

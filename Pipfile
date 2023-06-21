@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sqlalchemy = "*"
+sqlalchemy = {extras = ["asyncio"], version = "*"}
 loguru = "*"
 alembic = "*"
 psycopg2 = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+asyncpg = "*"
 
 [dev-packages]
 
