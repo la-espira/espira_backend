@@ -52,3 +52,9 @@ class DeviceProfileShow(DeviceBase):
     id_device_type: int
     id_device_model: int
     id_device_vendor: int
+
+
+class DeviceProfileCreate(DeviceBase):
+    id_device_type: int
+    id_device_model: int
+    id_device_vendor: int

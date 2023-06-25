@@ -127,3 +127,21 @@ async def read_device_profiles(
     """
     devices = await get_items_by_model(async_session=db, table_model=DeviceProfile, skip=skip, limit=limit)
     return devices
+
+
+@router.post("/device-profile/create", response_model=DeviceProfileShow)
+async def create_device_profiles(
+        device_model: DeviceProfileCreate,
+        db: Session = Depends(get_db),
+):
+    """
+    Create device profile
+    """
+    logger.debug(f"Post item: {device_model}")
+    new_element = await add_item_by_model(
+        item=device_model, table_model=DeviceProfile, async_session=db
+    )
+    if new_element:
+        return new_element
+    else:
+        raise HTTPException(status_code=400, detail="Already exists",)

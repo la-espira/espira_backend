@@ -2,6 +2,24 @@
 
 ---
 
+# 2023.06.25 Device Profile
+
+Added Create Device Profile.
+
+# 2023.06.21 problem with initial insert
+
+There's some problem with initial API for create model (for example).
+Is it a problem with async session?
+
+```shell
+INFO:     127.0.0.1:49558 - "POST /api/v1/device/vendor/create/ HTTP/1.1" 400 Bad Request
+DEBUG | 2023-06-22 00:18:22.721 | util | add_item_by_model:50 - Failed to add item: <db.models.device.DeviceVendor object at 0x7fc8a69a87c0>: IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "t_device_vendor_pkey"
+DETAIL:  Key (id)=(1) already exists.
+[SQL: INSERT INTO t_device_vendor (name) VALUES ($1::VARCHAR) RETURNING t_device_vendor.id]
+[parameters: ('Custom',)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+```
+
 # 2023.06.19 async
 
 Commited & pushed to feature/1.
