@@ -5,7 +5,7 @@ from sqlalchemy.engine.result import Sequence
 from sqlalchemy.exc import IntegrityError
 
 from common.log import logger
-from db.session import AsyncSession as Session
+from db.pg_session import AsyncSession as Session
 from db.models.base import Base
 from schemas.device import PydanticBase, DeviceBase
 
