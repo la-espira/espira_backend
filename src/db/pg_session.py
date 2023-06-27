@@ -9,10 +9,10 @@ from common.settings import settings
 
 async_engine = create_async_engine(
     settings.DB_CONNECTION_STRING,
-    pool_pre_ping=True,     # TODO ?
-    future=True,            # TODO ?
-    # autoflush=False,      # TODO ?
-    echo=True,              # TODO For debugging
+    pool_pre_ping=True,             # TODO ?
+    future=True,                    # TODO ?
+    # autoflush=False,              # TODO ?
+    echo=settings.SQLALCHEMY_ECHO,  # For tracing SQL commands
 )
 
 async_session = async_sessionmaker(

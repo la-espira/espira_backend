@@ -24,6 +24,9 @@ class Settings:
                 port=POSTGRES_PORT,
                 db=POSTGRES_DB,
             )
+        self.SQLALCHEMY_ECHO: bool = (
+            os.getenv('SQLALCHEMY_ECHO', 'False').lower() in ('true', '1')
+        )
         self.API_V1_STR: str = os.getenv('API_V1_STR', '/api/v1')
 
         self.LIMIT: int = int(os.getenv('LIMIT', 100))
