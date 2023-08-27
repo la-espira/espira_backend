@@ -2,6 +2,37 @@
 
 ---
 
+# 2023.08.27 Settings
+
+Refactored with pydantic_settings.
+
+# 2023.07.04 API naming
+
+I need to rethink naming for the API.
+https://restfulapi.net/resource-naming/
+
+# 2023.07.02 Kind, Intensity. Keep data.
+
+Gathering information about RAW_KIND, RAW_INTENSITY to decide how to keep data.
+
+# 2023.07.01 adapter
+
+```
+Device
+  Gadgetbridge
+    Mobile App
+      Backend API
+        GB Adapter
+          - if flag write_gb_raw=True: write data to MongoDB espira_stg DB timeseries collection
+          - Write data to MongoDB espira DB timeseries collection
+        Other Adapter
+          ...
+```
+
+# 2023.06.28 mongodb
+
+Started to write mongodb data insertion.
+
 # 2023.06.25 Device Profile
 
 Added Create Device Profile.
