@@ -1,20 +1,24 @@
-import os
 import sys
+
 from loguru import logger
+from pydantic_settings import BaseSettings
 
-LOG_LEVEL: str = os.getenv('LOG_LEVEL', 'INFO')
-LOGURU_FORMAT: str = os.getenv(
-    'LOGURU_FORMAT',
-    "<level>{level}</level> | " 
-    "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | " 
-    "<cyan>{module}</cyan> | " 
-    "<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
-)
 
+class LogSettings(BaseSettings):
+    log_level: str = 'INFO'
+    loguru_format: str = (
+        "<level>{level}</level> | " 
+        "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | " 
+        "<cyan>{module}</cyan> | " 
+        "<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+    )
+
+
+log_settings = LogSettings()
 logger.remove()
 error_handler = logger.add(
     sys.stderr,
-    level=LOG_LEVEL,
-    format=LOGURU_FORMAT
+    level=log_settings.log_level,
+    format=log_settings.loguru_format,
 )
-logger.debug(f"Log level set from env: {LOG_LEVEL}")
+logger.debug(f"Log level set from env: {log_settings.log_level}")
