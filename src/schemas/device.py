@@ -8,7 +8,7 @@ class DeviceBase(PydanticBase):
     name: str | None = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class DeviceCreate(DeviceBase):
