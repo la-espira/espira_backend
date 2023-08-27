@@ -8,11 +8,11 @@ from common.log import logger
 from common.settings import settings
 
 async_engine = create_async_engine(
-    settings.DB_CONNECTION_STRING,
+    settings.db_connection_string,
     pool_pre_ping=True,             # TODO ?
     future=True,                    # TODO ?
     # autoflush=False,              # TODO ?
-    echo=settings.SQLALCHEMY_ECHO,  # For tracing SQL commands
+    echo=settings.sqlalchemy_echo,  # For tracing SQL commands
 )
 
 async_session = async_sessionmaker(

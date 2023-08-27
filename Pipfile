@@ -11,6 +11,8 @@ psycopg2 = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 asyncpg = "*"
+motor = "*"
+pydantic-settings = "*"
 
 [dev-packages]
 

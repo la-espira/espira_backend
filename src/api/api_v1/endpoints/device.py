@@ -11,9 +11,9 @@ from schemas.device import *
 router = APIRouter()
 
 
-@router.get("/all", response_model=List[DeviceShow])
+@router.get("", response_model=List[DeviceShow])
 async def read_devices(
-    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
+    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.limit,
 ):
     """
     Get devices
@@ -29,7 +29,7 @@ async def read_devices(
     return devices
 
 
-@router.post("/create/", response_model=DeviceCreate)
+@router.post("", response_model=DeviceCreate)
 async def create_device(device: DeviceCreate, db: Session = Depends(get_db)):
     """
     Create a Device Type
@@ -44,7 +44,7 @@ async def create_device(device: DeviceCreate, db: Session = Depends(get_db)):
 
 @router.get("/type", response_model=List[DeviceTypeShow])
 async def read_device_types(
-    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
+    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.limit,
 ):
     """
     Retrieve devices
@@ -68,7 +68,7 @@ async def create_device_type(device_type: DeviceTypeCreate, db: Session = Depend
 
 @router.get("/vendor", response_model=List[DeviceVendorShow])
 async def read_device_vendors(
-    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
+    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.limit,
 ):
     """
     Retrieve devices
@@ -94,7 +94,7 @@ async def create_device_vendor(device_vendor: DeviceVendorCreate, db: Session = 
 
 @router.get("/model", response_model=List[DeviceModelShow])
 async def read_device_models(
-    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
+    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.limit,
 ):
     """
     Retrieve devices
@@ -120,7 +120,7 @@ async def create_device_model(device_model: DeviceModelCreate, db: Session = Dep
 
 @router.get("/device-profile", response_model=List[DeviceProfileShow])
 async def read_device_profiles(
-    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.LIMIT,
+    db: Session = Depends(get_db), skip: int = 0, limit: int = settings.limit,
 ):
     """
     Retrieve devices

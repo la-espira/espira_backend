@@ -1,39 +1,51 @@
-import os
+from pydantic_settings import BaseSettings
 
 from common.tool import make_connection_string
 
 
-class Settings:
-    def __init__(self):
-        self.PROJECT_NAME: str = os.getenv('PROJECT_NAME', 'espira')
-        with open('VERSION', 'r') as f:
-            self.PROJECT_VERSION: str = f.readline().strip()
+class Settings(BaseSettings):
+    project_name: str = 'espira'
+    project_version: str = ''
 
-        self.DB_DEVICE_SCHEMA: str = os.getenv('DB_DEVICE_SCHEMA', 'public')
-        self.DB_CONNECTION_STRING: str = os.getenv('DB_CONNECTION_STRING')
-        if not self.DB_CONNECTION_STRING:
-            POSTGRES_USER: str = os.getenv('POSTGRES_USER', 'espira')
-            POSTGRES_PASSWORD: str = os.getenv('POSTGRES_PASSWORD', 'espira')
-            POSTGRES_DB: str = os.getenv('POSTGRES_DB', 'espira')
-            POSTGRES_SERVER: str = os.getenv('POSTGRES_SERVER', 'localhost')
-            POSTGRES_PORT: str = os.getenv('POSTGRES_PORT', '5432')
-            self.DB_CONNECTION_STRING = make_connection_string(
-                user=POSTGRES_USER,
-                password=POSTGRES_PASSWORD,
-                server=POSTGRES_SERVER,
-                port=POSTGRES_PORT,
-                db=POSTGRES_DB,
-            )
-        self.SQLALCHEMY_ECHO: bool = (
-            os.getenv('SQLALCHEMY_ECHO', 'False').lower() in ('true', '1')
-        )
-        self.API_V1_STR: str = os.getenv('API_V1_STR', '/api/v1')
+    db_device_schema: str = 'public'
+    db_connection_string: str = ''
+    postgres_user: str = ''
+    postgres_password: str = ''
+    postgres_db: str = ''
+    postgres_server: str = ''
+    postgres_port: str = ''
 
-        self.LIMIT: int = int(os.getenv('LIMIT', 100))
+    sqlalchemy_echo: bool = False
+    api_v1_str: str = '/api/v1'
 
-        self.MONGO_DB: str = os.getenv('MONGO_DB', 'espira')
-        self.MONGO_USERNAME: str = os.getenv('MONGO_USERNAME', 'espira')
-        self.MONGO_PASSWORD: str = os.getenv('MONGO_PASSWORD', 'espira')
+    limit: int = 100
+
+    mongo_server: str = 'localhost'
+    mongo_port: int = 27017
+    mongo_db: str = 'espira'
+    mongo_username: str = 'espira'
+    mongo_password: str = 'espira'
+    mongo_connection_string: str = ''
 
 
 settings = Settings()
+if not settings.project_version:
+    with open('VERSION', 'r') as f:
+        settings.project_version = f.readline().strip()
+if not settings.db_connection_string:
+    settings.postgres_user = 'espira'
+    settings.postgres_password = 'espira'
+    settings.postgres_db = 'espira'
+    settings.postgres_server = 'localhost'
+    settings.postgres_port = '5432'
+    settings.db_connection_string = make_connection_string(
+        user=settings.postgres_user,
+        password=settings.postgres_password,
+        server=settings.postgres_server,
+        port=settings.postgres_port,
+        db=settings.postgres_db,
+    )
+settings.mongo_connection_string = (
+    f"mongo://{settings.mongo_username}:{settings.mongo_password}"
+    f"@{settings.mongo_server}:{settings.mongo_port}/{settings.mongo_db}"
+)

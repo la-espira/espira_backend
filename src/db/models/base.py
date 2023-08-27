@@ -10,7 +10,7 @@ from common.tool import camel_to_snake
 class Base:
     id: Mapped[int] = mapped_column(primary_key=True)
     __name__: str
-    __table_args__ = ({'schema': settings.DB_DEVICE_SCHEMA})
+    __table_args__ = ({'schema': settings.db_device_schema})
     __abstract__ = True
 
     # To generate tablename from class name
